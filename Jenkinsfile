@@ -11,23 +11,22 @@ pipeline {
         stage('Compile') {
             steps {
                 echo 'Compiling Java program...'
-                // Compile all Java files inside src folder
-                sh 'javac src/*.java'
+                // Windows batch command
+                bat 'javac src\\*.java'
             }
         }
 
         stage('Run') {
             steps {
                 echo 'Running Java program...'
-                // Run the main class, including src path
-                sh 'java -cp src Hello'
+                bat 'java -cp src Hello'
             }
         }
 
         stage('Clean Up') {
             steps {
                 echo 'Cleaning up class files...'
-                sh 'rm -f src/*.class'
+                bat 'del /Q src\\*.class'
             }
         }
     }
@@ -35,7 +34,7 @@ pipeline {
     post {
         success {
             echo 'Build and Run Successful!'
-        }    
+        }
         failure {
             echo 'Build Failed!'
         }
